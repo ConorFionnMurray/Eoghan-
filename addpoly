@@ -1,0 +1,111 @@
+#ifndef ADDPOLYS_H_INCLUDED
+#define ADDPOLYS_H_INCLUDED
+#include<stdlib.h>
+#include<stdio.h>
+#include"createPolys.h"
+
+void addPoly(struct link *poly1,struct link *poly2,struct link *polyAdd)
+{
+     while(poly1->next &&  poly2->next)
+     {
+      if(poly1->pow>poly2->pow)
+      {
+       polyAdd->pow=poly1->pow;
+       polyAdd->coeff=poly1->coeff;
+       poly1=poly1->next;
+       }
+      else if(poly1->pow<poly2->pow)
+      {
+       polyAdd->pow=poly2->pow;
+       polyAdd->coeff=poly2->coeff;
+       poly2=poly2->next;
+       }
+      else
+      {
+       polyAdd->pow=poly1->pow;
+       polyAdd->coeff=poly1->coeff+poly2->coeff;
+       poly1=poly1->next;
+       poly2=poly2->next;
+       }
+      polyAdd->next=(struct link *)malloc(sizeof(struct link));
+      polyAdd=polyAdd->next;
+      polyAdd->next=NULL;
+     }
+     while(poly1->next || poly2->next)
+     {
+      if(poly1->next)
+      {
+       polyAdd->pow=poly1->pow;
+       polyAdd->coeff=poly1->coeff;
+       poly1=poly1->next;
+       }
+      if(poly2->next)
+      {
+       polyAdd->pow=poly2->pow;
+       polyAdd->coeff=poly2->coeff;
+       poly2=poly2->next;
+       }
+       polyAdd->next=(struct link *)malloc(sizeof(struct link));
+       polyAdd=polyAdd->next;
+       polyAdd->next=NULL;
+       }
+}
+void createPolyAddCorrect(struct link *node)
+{
+    node->coeff = 7;
+    node->pow = 0;
+    node->next=(struct link*)malloc(sizeof(struct link));
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 9;
+    node->pow = 1;
+    node->next=(struct link*)malloc(sizeof(struct link));
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 7;
+    node->pow = 2;
+    node->next=(struct link*)malloc(sizeof(struct link));
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 10;
+    node->pow = 3;
+    node->next=(struct link*)malloc(sizeof(struct link));
+    node=node->next;
+    node->next=NULL;
+}
+
+void testCaseaddPoly()
+{
+      poly1=(struct link *)malloc(sizeof(struct link));
+      poly2=(struct link *)malloc(sizeof(struct link));
+      polyAdd=(struct link *)malloc(sizeof(struct link));
+      polyAddC=(struct link *)malloc(sizeof(struct link));
+
+
+    createPoly1(poly1);
+    printf("\nFirst Polynomial: ");
+    displayPoly(poly1);
+
+    createPoly2(poly2);
+    printf("\nSecond Polynomial: ");
+    displayPoly(poly2);
+
+    addPoly(poly1, poly2, polyAdd);
+    printf("\nAdded Polynomials: ");
+    displayPoly(polyAdd);
+
+    createPolyAddCorrect(polyAddC);
+    printf("\nCorrect Answer: ");
+    displayPoly(polyAddC);
+    if(polyAdd->coeff==polyAddC->coeff && polyAdd->pow==polyAddC->pow)
+    {
+        printf("\nTest Passed");
+    }
+    else
+    {
+        printf("\nTest Failed");
+    }
+}
+
+
+#endif // ADDPOLYS_H_INCLUDED
