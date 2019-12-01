@@ -1,0 +1,215 @@
+//authors: Eoghan Campion, Fionn Murray, Ciaran Moroney
+//date: 24/11/19
+#include<stdio.h>
+#include<malloc.h>
+#include<conio.h>
+struct link{
+       int coeff;
+       int pow;
+       struct link *next;
+       };
+struct link *poly1=NULL,*poly2=NULL,*poly=NULL, *polyAddC=NULL;
+/*void createPoly(struct link *node)
+{
+ char cont;
+ do
+ {
+  printf("\n Enter Coefficient:");
+  scanf("%d",&node->coeff);
+  printf("\n Enter It's Power:");
+  scanf("%d",&node->pow);
+  node->next=(struct link*)malloc(sizeof(struct link));
+  node=node->next;
+  node->next=NULL;
+  printf("\n Continue?(y/n):");
+  cont=getch();
+ }
+ while(cont=='y' || cont=='Y');
+}
+*/
+void createPoly1(struct link *node)
+{
+    node->coeff = 3;
+    node->pow = 0;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 4;
+    node->pow = 1;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 6;
+    node->pow = 2;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 7;
+    node->pow = 3;
+}
+
+void createPoly2(struct link *node)
+{
+    node->coeff = 4;
+    node->pow = 0;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 5;
+    node->pow = 1;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 1;
+    node->pow = 2;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 3;
+    node->pow = 3;
+}
+
+void createPolyAddCorrect(struct link *node)
+{
+    node->coeff = 7;
+    node->pow = 0;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 9;
+    node->pow = 1;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 7;
+    node->pow = 2;
+    node=node->next;
+    node->next=NULL;
+    node->coeff = 10;
+    node->pow = 3;
+}
+
+void displayPoly(struct link *node)
+{
+ while(node->next!=NULL)
+ {
+  printf("%dx^%d",node->coeff,node->pow);
+  node=node->next;
+  if(node->next!=NULL)
+   printf("+");
+ }
+}
+void addPoly(struct link *poly1,struct link *poly2,struct link *poly)
+{
+     while(poly1->next &&  poly2->next)
+     {
+      if(poly1->pow>poly2->pow)
+      {
+       poly->pow=poly1->pow;
+       poly->coeff=poly1->coeff;
+       poly1=poly1->next;
+       }
+      else if(poly1->pow<poly2->pow)
+      {
+       poly->pow=poly2->pow;
+       poly->coeff=poly2->coeff;
+       poly2=poly2->next;
+       }
+      else
+      {
+       poly->pow=poly1->pow;
+       poly->coeff=poly1->coeff+poly2->coeff;
+       poly1=poly1->next;
+       poly2=poly2->next;
+       }
+      poly->next=(struct link *)malloc(sizeof(struct link));
+      poly=poly->next;
+      poly->next=NULL;
+     }
+     while(poly1->next || poly2->next)
+     {
+      if(poly1->next)
+      {
+       poly->pow=poly1->pow;
+       poly->coeff=poly1->coeff;
+       poly1=poly1->next;
+       }
+      if(poly2->next)
+      {
+       poly->pow=poly2->pow;
+       poly->coeff=poly2->coeff;
+       poly2=poly2->next;
+       }
+       poly->next=(struct link *)malloc(sizeof(struct link));
+       poly=poly->next;
+       poly->next=NULL;
+       }
+}
+int main()
+{
+      poly1=(struct link *)malloc(sizeof(struct link));
+      poly2=(struct link *)malloc(sizeof(struct link));
+      poly=(struct link *)malloc(sizeof(struct link));
+      polyAddC=(struct link *)malloc(sizeof(struct link));
+
+
+    createPoly1(poly1);
+    printf("\nFirst Polynomial: ");
+    displayPoly(poly1);
+
+    createPoly2(poly2);
+    printf("\nSecond Polynomial: ");
+    displayPoly(poly2);
+
+    addPoly(poly1, poly2, poly);
+    printf("\nAdded Polynomials: ");
+    displayPoly(poly);
+
+    createPolyAddCorrect(polyAddC);
+    printf("\nCorrect Answer: ");
+    displayPoly(polyAddC);
+    if(poly==polyAddC)
+    {
+        printf("Test Passed");
+    }
+    else
+    {
+        printf("Test Failed");
+    }
+
+     /* char cont;
+      do{
+      poly1=(struct link *)malloc(sizeof(struct link));
+      poly2=(struct link *)malloc(sizeof(struct link));
+      poly=(struct link *)malloc(sizeof(struct link));
+      printf("\nEnter 1st Polynomial in Ascending order:");
+      createPoly(poly1);
+      printf("\nEnter 2nd Polynomial in Ascending order:");
+      createPoly(poly2);
+      printf("\n1st Polynomial:");
+      displayPoly(poly1);
+      printf("\n2nd Polynomial:");
+      displayPoly(poly2);
+      addPoly(poly1,poly2,poly);
+      printf("\nAdded polynomial:");
+      displayPoly(poly);
+      printf("\nWanna see me do it again?(y/n): ");
+      cont=getch();
+      }
+      while(cont=='y' || cont=='Y');*/
+}
+
+/*void testCasePoly()
+{
+    createPoly1(poly1);
+    createPoly2(poly2);
+    addPoly(poly1, poly2, poly);
+    printf("\nFirst Polynomial: ");
+    displayPoly(poly1);
+    printf("\nSecond Polynomial: ");
+    displayPoly(poly2);
+    printf("\nAdded Polynomials: ");
+    displayPoly(poly);
+    createPolyAddCorrect(polyAddC);
+    if(poly==polyAddC)
+    {
+        printf("Test Passed");
+    }
+    else
+    {
+        printf("Test Failed");
+    }
+}*/
+
